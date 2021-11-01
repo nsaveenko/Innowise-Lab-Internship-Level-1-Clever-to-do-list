@@ -66,6 +66,11 @@ input[type="submit"] {
   outline: none;
 }
 
+input[type="submit"]:hover {
+  background-color: #f9c83e;
+  border: 1px solid #f9c83e;
+}
+
 .form label {
   flex-wrap: wrap;
   margin: 20px;
@@ -88,7 +93,8 @@ input[type="submit"] {
 }
 
 .link:hover {
-  color: #ff632c;
+  color: #f9c83e;
+  border-bottom: 1px solid #f9c83e;
 }
 
 .error-message {

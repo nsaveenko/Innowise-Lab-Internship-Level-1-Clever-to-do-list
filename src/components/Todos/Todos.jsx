@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import TodoList from '../TodoList/TodoList';
 import { useHistory } from 'react-router-dom';
-import firebase from '../../firebase';
+import { ref } from '../../contexts/TodoContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Todos() {
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const ref =  firebase.firestore().collection('todos');
+  const { currentUser } = useAuth();
 
   function getTodos() {
-    ref.get().then((item) => {
+    ref.where('email', '==', currentUser.email)
+      .get().then((item) => {
       const items = item.docs.map((doc) => doc.data());
       setTodos(items);
+      setLoading(true);
     })
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -21,7 +26,7 @@ export default function Todos() {
 
   return (
     <div className="wrapper">
-      <TodoList todos={todos} />
+      {loading ? <TodoList todos={todos} /> : <p className="loading">Loading...</p>}
       <button className='primary-button' onClick={() => history.push('/setToDo')}>+ Add a New Task</button>
     </div>
   )

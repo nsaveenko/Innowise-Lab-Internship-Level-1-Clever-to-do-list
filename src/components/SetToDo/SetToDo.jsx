@@ -1,52 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../Header/Header';
 import { useHistory } from 'react-router-dom';
+import { ref } from '../../contexts/TodoContext';
+import { v4 as uuidv4 } from "uuid";
+import { useAuth } from '../../contexts/AuthContext';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function NewToDo() {
   const history = useHistory();
-  const [todos, setTodos] = useState([]);
-  const [todoTitle, setTodoTitle] = useState('');
-  const [todoDescription, setTodoDescription] = useState('');
-  let isCreated = false;
+  const { currentUser } = useAuth();
+  const [newTitle, setNewTitle] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  const [date, setDate] = useState(new Date());
 
-  const createTodo = () => {
-    setTodos([
-      ...todos,
-      {
-        id: Date.now(),
-        title: todoTitle,
-        description: todoDescription,
-        completed: false
-      }
-    ])
-    setTodoTitle('');
-    setTodoDescription('');
-
-    isCreated = true;
+  const newTodo = {
+    id: uuidv4(),
+    email: currentUser.email,
+    date,
+    title: newTitle,
+    description: newDescription,
+    completed: false
   }
 
-  const handleSubmit = (event) => {
+  function addTodo(newTodo, ref) {
+    ref
+      .doc(newTodo.id)
+      .set(newTodo)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  function handleSubmit(event) {
     event.preventDefault();
-    createTodo();
-
-    if (isCreated) {
-      isCreated = false;
-      history.push('/');
-    }
+    addTodo(newTodo, ref);
+    history.push('/');
   }
-
-  useEffect(() => {
-    if (localStorage.length === 0) {
-      localStorage.setItem('todos', JSON.stringify([]));
-    }
- 
-    const raw = localStorage.getItem('todos') || [];
-    setTodos(JSON.parse(raw));
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos])
 
   return (
     <>
@@ -58,18 +48,19 @@ export default function NewToDo() {
               <h3>Task title:</h3>
               <input
                 type='text'
-                value={todoTitle}
-                onChange={(event) => setTodoTitle(event.target.value)}
+                value={newTitle}
+                onChange={(event) => setNewTitle(event.target.value)}
               />
             </label>
             <label>
               <h3>Task description:</h3>
               <input
                 type='text'
-                value={todoDescription}
-                onChange={(event) => setTodoDescription(event.target.value)}
+                value={newDescription}
+                onChange={(event) => setNewDescription(event.target.value)}
               />
             </label>
+            <DatePicker selected={date} onChange={date => setDate(date)} />
             <input className='primary-button' type='submit' value='Create new task' />
           </form>
         </div>

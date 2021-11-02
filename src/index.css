@@ -71,10 +71,8 @@ input {
   color: #b9b9b9;
   padding: 7px;
   border-radius: 5px;
-  /* margin-top: 7px; */
   cursor: pointer;
   outline: none;
-  /* width: 95%; */
   background-color: transparent;
 }
 
@@ -85,7 +83,6 @@ input:hover, input:active, input:focus {
 .primary-button {
   background-color: #ff632c;
   color: #fff;
-  /* width: 100%; */
   border: 1px solid #ff632c;
   border-radius: 5px;
   margin-top: 7px;
@@ -144,4 +141,8 @@ ul {
 
 .new-task-form h3{
   width: 400px;
+}
+
+.loading {
+  color: #ff632c;
 }

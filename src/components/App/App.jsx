@@ -1,0 +1,23 @@
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Signup from '../Signup/Signup';
+import Signin from '../Signin/Signin';
+import Dashboard from '../Dashboard/Dashboard';
+import AuthProvider from '../../contexts/AuthContext';
+import PrivateRoute from '../PrivateRoute';
+import SetToDo from '../SetToDo/SetToDo'
+
+function App() {
+  return (
+    <AuthProvider>
+      <>
+        <Route path='/signup' exact component={Signup} />
+        <Route path='/signin' exact component={Signin} />
+        <PrivateRoute path='/' exact component={Dashboard} />
+        <PrivateRoute path='/setToDo' exact component={SetToDo} />
+      </>
+    </AuthProvider>
+  );
+}
+
+export default App;

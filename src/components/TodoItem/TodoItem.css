@@ -1,0 +1,21 @@
+.todo {
+  width: 200px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.todo.completed span {
+  text-decoration: line-through;
+}
+
+.todo svg {
+  color: #ff6e40;
+  z-index: 2;
+}
+
+.todo-title {
+  padding-left: 10px;
+}

@@ -1,14 +1,15 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const app = firebase.initializeApp({
-  apiKey: "AIzaSyDQCLW3M92l8kNS-fgwq3WLQH4HEQyW14g",
-  authDomain: "clever-to-do-list-69168.firebaseapp.com",
-  projectId: "clever-to-do-list-69168",
-  storageBucket: "clever-to-do-list-69168.appspot.com",
-  messagingSenderId: "551496646726",
-  appId: "1:551496646726:web:7788200f0121abd60a0a47",
-  measurementId: "G-G5E6JYMY2S"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGIN_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 });
 
 export const auth = app.auth();

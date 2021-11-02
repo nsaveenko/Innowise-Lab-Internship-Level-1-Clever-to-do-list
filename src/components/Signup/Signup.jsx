@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Singup() {
   const emailRef = useRef();
@@ -52,9 +52,9 @@ export default function Singup() {
           <input type='password' ref={passwordConfirmRef} required />
         </label>
 
-        <input type='submit' disabled={loading} value='Sing Up'/>
+        <input className='primary-button' type='submit' disabled={loading} value='Sign Up'/>
       </form>
-      <h2 className="auth-info">Already have an account? <NavLink to='/singin' className='link'>Sing In</NavLink></h2>
+      <h2 className="auth-info">Already have an account? <NavLink to='/signin' className='link'>Sign In</NavLink></h2>
     </div>
   )
 }

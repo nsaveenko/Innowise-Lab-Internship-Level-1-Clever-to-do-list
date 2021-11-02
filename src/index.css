@@ -17,13 +17,41 @@ code {
     monospace;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+  max-width: 762px;
+  color: #1a1a1a;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+.page-title {
+  cursor: pointer;
+}
+.page-title:hover {
+  color: #ff632c;
+}
+
+.email-title {
+  font-weight: 300;
+  color: #ff632c;
+}
+
 .wrapper {
   padding-top: 60px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 768px;
+  max-width: 762px;
   flex-direction: column;
   color: #1a1a1a;
 }
@@ -43,10 +71,10 @@ input {
   color: #b9b9b9;
   padding: 7px;
   border-radius: 5px;
-  margin-top: 7px;
+  /* margin-top: 7px; */
   cursor: pointer;
   outline: none;
-  width: 95%;
+  /* width: 95%; */
   background-color: transparent;
 }
 
@@ -54,10 +82,10 @@ input:hover, input:active, input:focus {
   border: 1px solid #ff632c;
 }
 
-input[type="submit"] {
+.primary-button {
   background-color: #ff632c;
   color: #fff;
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid #ff632c;
   border-radius: 5px;
   margin-top: 7px;
@@ -66,7 +94,7 @@ input[type="submit"] {
   outline: none;
 }
 
-input[type="submit"]:hover {
+.primary-button:hover {
   background-color: #f9c83e;
   border: 1px solid #f9c83e;
 }
@@ -103,4 +131,17 @@ input[type="submit"]:hover {
   border-radius: 10px;
   padding: 10px;
   margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.new-task-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-task-form h3{
+  width: 400px;
 }

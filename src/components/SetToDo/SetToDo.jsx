@@ -1,35 +1,30 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import { useHistory } from 'react-router-dom';
-import { ref } from '../../contexts/TodoContext';
+import { useTodo } from '../../contexts/TodoContext';
 import { v4 as uuidv4 } from "uuid";
 import { useAuth } from '../../contexts/AuthContext';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
+import TodoItem from '../TodoItem/TodoItem';
 
 export default function NewToDo() {
   const history = useHistory();
   const { currentUser } = useAuth();
-  const [newTitle, setNewTitle] = useState('');
-  const [newDescription, setNewDescription] = useState('');
+  const [newTitle, setNewTitle] = useState('What do you need to do?');
+  const [newDescription, setNewDescription] = useState('Describe it!');
   const [date, setDate] = useState(new Date());
+  const { ref, addTodo } = useTodo();
+  
 
   const newTodo = {
     id: uuidv4(),
     email: currentUser.email,
-    date,
+    date: moment(date).format('MMM Do YY'),
     title: newTitle,
     description: newDescription,
     completed: false
-  }
-
-  function addTodo(newTodo, ref) {
-    ref
-      .doc(newTodo.id)
-      .set(newTodo)
-      .catch((err) => {
-        console.error(err);
-      });
   }
 
   function handleSubmit(event) {
@@ -43,25 +38,32 @@ export default function NewToDo() {
       <Header headerTitle='New Task'/>
       <main>
         <div className='wrapper'>
-          <form className='form' onSubmit={handleSubmit}>
+          <div className='main-content'>
+          <TodoItem title={newTitle} description={newDescription} completed={false} />
+          </div>
+          <form className='todo-form' onSubmit={handleSubmit}>
             <label>
-              <h3>Task title:</h3>
+              <h3 className="input-title">Task title:</h3>
               <input
+                className='todo-input'
                 type='text'
                 value={newTitle}
                 onChange={(event) => setNewTitle(event.target.value)}
+                onClick={() => setNewTitle('')}
               />
             </label>
             <label>
-              <h3>Task description:</h3>
+              <h3 className="input-title">Task description:</h3>
               <input
+                className='todo-input'
                 type='text'
                 value={newDescription}
                 onChange={(event) => setNewDescription(event.target.value)}
+                onClick={() => setNewDescription('')}
               />
             </label>
             <DatePicker selected={date} onChange={date => setDate(date)} />
-            <input className='primary-button' type='submit' value='Create new task' />
+            <input className='primary-button' type='submit' value='Save' />
           </form>
         </div>
       </main>

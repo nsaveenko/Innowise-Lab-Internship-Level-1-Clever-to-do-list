@@ -1,32 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import TodoList from '../TodoList/TodoList';
 import { useHistory } from 'react-router-dom';
-import { ref } from '../../contexts/TodoContext';
-import { useAuth } from '../../contexts/AuthContext';
+import { useTodo } from '../../contexts/TodoContext';
+import Calendar from '../Calendar/Calendar';
 
 export default function Todos() {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const { currentUser } = useAuth();
+  const { todos, loading, getTodosByDate } = useTodo();
+  const todosCount = todos.length;
+  // const todosCountTitle = todos.length > 1 ? 'Tasks' : 'Task';
+  const date = new Date();
+  const currentDay = date.getDate();
 
-  function getTodos() {
-    ref.where('email', '==', currentUser.email)
-      .get().then((item) => {
-      const items = item.docs.map((doc) => doc.data());
-      setTodos(items);
-      setLoading(true);
-    })
-    setLoading(false);
+  let todosCountTitle = '';
+
+  if (todosCount === 0) {
+    todosCountTitle = 'There are no tasks on this day yet'
+  } else if (todos.length === 1) {
+    todosCountTitle = `${todosCount} task on this day`
+  } else {
+    todosCountTitle = `${todosCount} tasks on this day`
   }
 
+
   useEffect(() => {
-    getTodos();
+    getTodosByDate(date);
   }, [])
 
   return (
-    <div className="wrapper">
-      {loading ? <TodoList todos={todos} /> : <p className="loading">Loading...</p>}
+    <div className="wrapper todos">
+      <Calendar date={date} currentDay={currentDay} />
+      {loading && <h3 className='todos-count'>{todosCountTitle}</h3>}
+      {loading ? <TodoList date={date} currentDay={currentDay} todos={todos} /> : <p className="loading">Loading...</p>}
       <button className='primary-button' onClick={() => history.push('/setToDo')}>+ Add a New Task</button>
     </div>
   )

@@ -7,7 +7,6 @@ export default function Singin() {
   const passwordRef = useRef();
   const { signin } = useAuth();
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   async function handleSubmit(e) {
@@ -15,14 +14,11 @@ export default function Singin() {
 
     try {
       setError('');
-      setLoading(true);
       await signin(emailRef.current.value, passwordRef.current.value);
       history.push('/');
     } catch {
       setError('Failed to sign in');
     }
-
-    setLoading(false);
   }
 
   return (
@@ -31,12 +27,12 @@ export default function Singin() {
       {error && <p className='error-message'>{error}</p>}
       <form className='form' onSubmit={handleSubmit}>
         <label>
-          Email
+          <h3 className="input-title">Email</h3>
           <input type='email' ref={emailRef} />
         </label>
         
         <label>
-          Password
+          <h3 className="input-title">Password</h3>
           <input type='password' ref={passwordRef} />
         </label>
 

@@ -24,7 +24,7 @@ export default function Header({ headerTitle }) {
 
   return (
     <header className='header'>
-      <h1 className='page-title' onClick={() => history.push('/')}>{headerTitle}</h1>
+      <h1 className='page-title'>{headerTitle}</h1>
       <h3 className='email-title'>{currentUser.email}</h3>
       <button className='primary-button' onClick={handleSignout}>Sign out</button>
     </header>

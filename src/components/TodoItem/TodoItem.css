@@ -1,11 +1,11 @@
 .todo {
-  width: 200px;
+  width: 100%;
   margin-top: 10px;
   display: flex;
   align-items: center;
   cursor: pointer;
   padding: 5px;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .todo.completed span {
@@ -19,4 +19,13 @@
 
 .todo-title {
   padding-left: 10px;
+  width: 300px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #898989;
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
 }

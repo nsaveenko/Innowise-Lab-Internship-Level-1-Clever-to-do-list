@@ -3,7 +3,7 @@ import TodoItem from '../TodoItem/TodoItem';
 
 export default function TodoList({todos}) {
   return (
-    <ul>
+    <ul className='todo-list'>
       {todos.map(todo => {
         return (
           <TodoItem

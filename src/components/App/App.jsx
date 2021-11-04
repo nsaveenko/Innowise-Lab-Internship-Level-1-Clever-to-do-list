@@ -5,17 +5,20 @@ import Signin from '../Signin/Signin';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthProvider from '../../contexts/AuthContext';
 import PrivateRoute from '../PrivateRoute';
-import SetToDo from '../SetToDo/SetToDo'
+import TodoProvider from '../../contexts/TodoContext';
+import SetToDo from '../SetToDo/SetToDo';
 
 function App() {
   return (
     <AuthProvider>
-      <>
-        <Route path='/signup' exact component={Signup} />
-        <Route path='/signin' exact component={Signin} />
-        <PrivateRoute path='/' exact component={Dashboard} />
-        <PrivateRoute path='/setToDo' exact component={SetToDo} />
-      </>
+      <TodoProvider>
+        <>
+          <Route path='/signup' exact component={Signup} />
+          <Route path='/signin' exact component={Signin} />
+          <PrivateRoute path='/' exact component={Dashboard} />
+          <PrivateRoute path='/setToDo' exact component={SetToDo} />
+        </>
+      </TodoProvider>
     </AuthProvider>
   );
 }

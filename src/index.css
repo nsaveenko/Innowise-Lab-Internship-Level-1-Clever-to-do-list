@@ -23,6 +23,7 @@ ul {
 }
 
 .header {
+  padding: 30px;
   display: flex;
   flex-direction: row;
   margin: 0 auto;
@@ -39,17 +40,23 @@ h1 {
 }
 
 .page-title {
-  width: 50%;
+  width: 36%;
 }
 
 .email-title {
   font-weight: 300;
   color: #ff632c;
-  width: 20%;
+}
+
+@media (max-width: 450px) {
+  .email-title {
+    display: none;
+  }
 }
 
 .wrapper {
   padding-top: 60px;
+  padding: 30px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -227,6 +234,7 @@ input:hover, input:active, input:focus {
 
 .todos-count {
   font-size: 30px;
+  padding-bottom: 15px;  
 }
 
 .input-title {
@@ -241,8 +249,6 @@ input:hover, input:active, input:focus {
 
 .scroll {
   display: flex;
-  padding-top: 7px;
-  padding-left: 5px;
 }
 
 .scroll-container {
@@ -250,6 +256,9 @@ input:hover, input:active, input:focus {
   width: 100%;
   overflow-x: scroll;
   margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 50px;
 }
 
 .scroll ul > li {
@@ -260,7 +269,6 @@ input:hover, input:active, input:focus {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  padding-bottom: 20px;
   align-items: center;
 }
 
@@ -275,6 +283,7 @@ input:hover, input:active, input:focus {
   justify-content: center;
   color: #898989;
   cursor: pointer;
+  outline: none;
 }
 
 .calendar-item:hover {

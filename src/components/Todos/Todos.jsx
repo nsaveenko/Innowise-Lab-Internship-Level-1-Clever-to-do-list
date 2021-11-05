@@ -8,7 +8,6 @@ export default function Todos() {
   const history = useHistory();
   const { todos, loading, getTodosByDate } = useTodo();
   const todosCount = todos.length;
-  // const todosCountTitle = todos.length > 1 ? 'Tasks' : 'Task';
   const date = new Date();
   const currentDay = date.getDate();
 
@@ -22,17 +21,42 @@ export default function Todos() {
     todosCountTitle = `${todosCount} tasks on this day`
   }
 
-
   useEffect(() => {
     getTodosByDate(date);
   }, [])
 
   return (
     <div className="wrapper todos">
-      <Calendar date={date} currentDay={currentDay} />
+      <Calendar
+        date={date} 
+        currentDay={currentDay} 
+      />
       {loading && <h3 className='todos-count'>{todosCountTitle}</h3>}
-      {loading ? <TodoList date={date} currentDay={currentDay} todos={todos} /> : <p className="loading">Loading...</p>}
-      <button className='primary-button' onClick={() => history.push('/setToDo')}>+ Add a New Task</button>
+      {
+        loading ?
+        <TodoList 
+          date={date} 
+          currentDay={currentDay} 
+          todos={todos} 
+        /> :
+        <p className="loading">Loading...</p>
+      }
+      <button
+        className='primary-button'
+        onClick={() => {
+          history.push(
+            {
+              pathname: '/setToDo',
+              state: {
+                isExisted: false,
+                todoId: null,
+              },
+            }
+          )}
+        }
+      >
+      + Add a New Task
+      </button>
     </div>
   )
 }

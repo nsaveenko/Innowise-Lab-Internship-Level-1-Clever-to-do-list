@@ -11,6 +11,7 @@ export function useTodo() {
 
 export default function TodoProvider({ children }) {
   const [todos, setTodos] = useState([]);
+  const [todo, setTodo] = useState([]);
   const [loading, setLoading] = useState(false);
   const ref =  firebase.firestore().collection('todos');
   const { currentUser } = useAuth();
@@ -27,7 +28,13 @@ export default function TodoProvider({ children }) {
     setLoading(false);
   }
 
-  function addTodo(newTodo, ref) {
+  function getTodoById(todoId) {
+    ref
+    .doc(todoId).get()
+    .then(snapshot => setTodo(snapshot.data()))
+  }
+
+  function addTodo(newTodo) {
     ref
       .doc(newTodo.id)
       .set(newTodo)
@@ -36,7 +43,7 @@ export default function TodoProvider({ children }) {
       });
   }
 
-  function editTodo(id, checked) {
+  function editTodoCompleted(id, checked) {
     ref
       .doc(id)
       .update({completed: !checked})
@@ -45,13 +52,27 @@ export default function TodoProvider({ children }) {
       });
   }
 
+  function editTodo(updatedTodo) {
+    console.log('updated todo', updatedTodo)
+    ref
+      .doc(updatedTodo.id)
+      .update(updatedTodo)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   const value = {
     ref,
     addTodo,
-    editTodo,
+    editTodoCompleted,
     getTodosByDate,
+    getTodoById,
     todos,
-    loading
+    loading,
+    todo,
+    setTodo,
+    editTodo
   };
 
   return (

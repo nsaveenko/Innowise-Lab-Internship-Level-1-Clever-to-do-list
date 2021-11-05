@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import './TodoItem.css';
 import { useTodo } from '../../contexts/TodoContext';
+import { useHistory } from 'react-router-dom';
 
 function TodoItem({id, title, completed}) {
+  const history = useHistory();
   const [checked, setChecked] = useState(completed);
-  const { editTodo } = useTodo();
+  const { editTodoCompleted } = useTodo();
 
   function handleChange() {
     setChecked(!checked);
-    editTodo(id, checked);
+    editTodoCompleted(id, checked);
   }
 
   return (
@@ -21,7 +23,21 @@ function TodoItem({id, title, completed}) {
         onChange={handleChange}
       />
       <label htmlFor={id} />
-      <span className='todo-title'>{title}</span>
+      <span
+        className='todo-title'
+        onClick={() => {
+        history.push(
+        {
+          pathname: '/setToDo',
+          state: {
+            isExisted: true,
+            todoId: id,
+          },
+        }
+      )}}
+      >
+      {title}
+      </span>
     </li>
   )
 }

@@ -48,7 +48,13 @@ export default function Calendar({ date, currentDay }) {
           days.map((day) => {
             return (
               <ul className='calendar' onClick={handleClick}>
-              <Day key={day} day={day} weekDays={weekDays} currentDay={currentDay} selected={Number(selected)} />
+              <Day 
+                key={day}
+                day={day}
+                weekDays={weekDays}
+                currentDay={currentDay}
+                selected={Number(selected)}
+              />
               </ul>
             )
           })

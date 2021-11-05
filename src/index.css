@@ -256,8 +256,7 @@ input:hover, input:active, input:focus {
   width: 100%;
   overflow-x: scroll;
   margin: auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 3px 10px 3px;
   margin-bottom: 50px;
 }
 
@@ -305,3 +304,32 @@ input:hover, input:active, input:focus {
   font-weight: 200;
   padding-bottom: 7px;
 }
+
+.calendar-item-status-container {
+  padding-top: 7px;
+  display: flex;
+  width: 80%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.calendar-item-status {
+  width: 0.3em;
+  height: 0.3em;
+  background-color: #1a1a1a;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.completed {
+  background-color: #ff6e40;
+}
+
+.uncompleted {
+  background-color: #f9c83e;
+}
+

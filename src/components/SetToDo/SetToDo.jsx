@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import { useHistory } from 'react-router-dom';
 import { useTodo } from '../../contexts/TodoContext';
@@ -8,20 +8,36 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
 import TodoItem from '../TodoItem/TodoItem';
+import { useLocation } from "react-router-dom";
 
-export default function NewToDo() {
+export default function SetToDo() {
+  const location = useLocation();
   const history = useHistory();
+  const isExisted = location.state.isExisted;
+  const todoId = location.state.todoId;
   const { currentUser } = useAuth();
-  const [newTitle, setNewTitle] = useState('What do you need to do?');
-  const [newDescription, setNewDescription] = useState('Describe it!');
+  const [newTitle, setNewTitle] = useState('');
+  const [newDescription, setNewDescription] = useState('');
   const [date, setDate] = useState(new Date());
-  const { ref, addTodo } = useTodo();
+  const { addTodo, getTodoById, todo, editTodo } = useTodo();
+  const submitInputValue = isExisted ? 'Update' : 'Save';
+  const id = todoId ? todoId : uuidv4();
   
+  useEffect(() => {
+    if (todoId) {
+      getTodoById(todoId);
+      setNewTitle(todo.title);
+      setNewDescription(todo.description);
+    } else {
+      setNewTitle('What do you need to do?');
+      setNewDescription('Describe it!');
+    }
+  }, [todo.title])
 
   const newTodo = {
-    id: uuidv4(),
+    id,
     email: currentUser.email,
-    date: moment(date).format('MMM Do YY'),
+    date: moment(date).format('MMM Do YY').toString(),
     title: newTitle,
     description: newDescription,
     completed: false
@@ -29,7 +45,11 @@ export default function NewToDo() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    addTodo(newTodo, ref);
+    if (todoId) {
+      editTodo(newTodo);
+    } else {
+      addTodo(newTodo);
+    }
     history.push('/');
   }
 
@@ -63,7 +83,7 @@ export default function NewToDo() {
               />
             </label>
             <DatePicker selected={date} onChange={date => setDate(date)} />
-            <input className='primary-button' type='submit' value='Save' />
+            <input className='primary-button' type='submit' value={submitInputValue} />
           </form>
         </div>
       </main>

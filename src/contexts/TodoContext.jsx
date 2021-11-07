@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import firebase from '../firebase';
-import { useAuth } from './AuthContext';
 import moment from 'moment';
+import { useAuth } from './AuthContext';
 
 const TodoContext = React.createContext();
 
@@ -53,10 +53,18 @@ export default function TodoProvider({ children }) {
   }
 
   function editTodo(updatedTodo) {
-    console.log('updated todo', updatedTodo)
     ref
       .doc(updatedTodo.id)
       .update(updatedTodo)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  function deleteTodo(todoId) {
+    ref
+      .doc(todoId)
+      .delete()
       .catch((err) => {
         console.error(err);
       });
@@ -72,7 +80,8 @@ export default function TodoProvider({ children }) {
     loading,
     todo,
     setTodo,
-    editTodo
+    editTodo,
+    deleteTodo
   };
 
   return (

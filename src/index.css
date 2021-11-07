@@ -40,7 +40,12 @@ h1 {
 }
 
 .page-title {
+  cursor: pointer;
   width: 36%;
+}
+
+.page-title:hover {
+  color: #ff632c;
 }
 
 .email-title {
@@ -119,7 +124,7 @@ input:hover, input:active, input:focus {
   color: #fff;
   border: 1px solid #ff632c;
   border-radius: 5px;
-  margin-top: 7px;
+  /* margin-top: 7px; */
   padding: 10px;
   cursor: pointer;
   outline: none;
@@ -247,7 +252,7 @@ input:hover, input:active, input:focus {
   }
 }
 
-.scroll {
+.scroller {
   display: flex;
 }
 
@@ -260,7 +265,7 @@ input:hover, input:active, input:focus {
   margin-bottom: 50px;
 }
 
-.scroll ul > li {
+.scroller ul > li {
   margin-right: 10px;
 }
 
@@ -333,3 +338,21 @@ input:hover, input:active, input:focus {
   background-color: #f9c83e;
 }
 
+.secondary-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  transform: scale(1.1);
+  color: #ff632c;
+}
+
+.main-content {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}

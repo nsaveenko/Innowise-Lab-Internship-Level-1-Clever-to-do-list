@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './TodoItem.css';
 import { useTodo } from '../../contexts/TodoContext';
 import { useHistory } from 'react-router-dom';
+import './TodoItem.css';
 
 function TodoItem({id, title, completed}) {
   const history = useHistory();
@@ -28,7 +28,7 @@ function TodoItem({id, title, completed}) {
         onClick={() => {
         history.push(
         {
-          pathname: '/setToDo',
+          pathname: '/todo',
           state: {
             isExisted: true,
             todoId: id,

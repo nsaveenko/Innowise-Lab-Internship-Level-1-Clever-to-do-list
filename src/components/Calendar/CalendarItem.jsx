@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTodo } from '../../contexts/TodoContext';
 
-export default function Day({ day, weekDays, selected, currentDay }) {
+export default function CalendarItem({ day, weekDays, selected, currentDay }) {
   const date = new Date(Number(day));
   const cls = ['calendar-item'];
   const { getTodosByDate } = useTodo();

@@ -27,18 +27,18 @@ export default function Singin() {
       {error && <p className='error-message'>{error}</p>}
       <form className='form' onSubmit={handleSubmit}>
         <label>
-          <h3 className="input-title">Email</h3>
+          <h3 className='input-title'>Email</h3>
           <input type='email' ref={emailRef} />
         </label>
         
         <label>
-          <h3 className="input-title">Password</h3>
+          <h3 className='input-title'>Password</h3>
           <input type='password' ref={passwordRef} />
         </label>
 
         <input className='primary-button' type='submit' value='Sign In' />
       </form>
-      <h2 className="auth-info">Don't have an account yet? <NavLink to='/signup' className='link'>Register now</NavLink></h2>
+      <h2 className='auth-info'>Don't have an account yet? <NavLink to='/signup' className='link'>Register now</NavLink></h2>
     </div>
   )
 }

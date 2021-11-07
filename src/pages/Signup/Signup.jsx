@@ -67,7 +67,7 @@ export default function Singup() {
 
         <input className='primary-button' type='submit' disabled={loading} value='Sign Up'/>
       </form>
-      <h2 className="auth-info">Already have an account? <NavLink to='/signin' className='link'>Sign In</NavLink></h2>
+      <h2 className='auth-info'>Already have an account? <NavLink to='/signin' className='link'>Sign In</NavLink></h2>
     </div>
   )
 }

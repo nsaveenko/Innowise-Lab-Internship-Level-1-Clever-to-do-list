@@ -2,17 +2,12 @@ import React from 'react';
 import moment from 'moment';
 import Scroll from '../Scroller/Scroller';
 import CalendarItem from '../CalendarItem/CalendarItem';
-import { convertToTimestamp, weekDays, daysInMonth, month, year } from '../../utils/date';
+import { weekDays, daysInMonth, month, year, initMonth } from '../../utils/date';
 import { useTodo } from '../../contexts/TodoContext';
 import './Calendar.css';
 
 export default function Calendar({ date, currentDay, selectedDay, handleSelectedDayChange }) {
-  const days = [];
   const { todos } = useTodo();
-
-  for (let i = date.getDate(); i < daysInMonth + 1; i+=1) {
-    days.push(convertToTimestamp(i, month, year));
-  }
 
   function handleDayClick(event) {
     const currentId = event.currentTarget.id;
@@ -24,7 +19,7 @@ export default function Calendar({ date, currentDay, selectedDay, handleSelected
       <Scroll>
           <ul className='calendar' >
           {
-            days.map((day) => {
+            initMonth(daysInMonth).map((day) => {
               const todosByDate = todos.filter((todo) => {
                 return todo.date === moment(+day).format('MMM Do YY');
               })

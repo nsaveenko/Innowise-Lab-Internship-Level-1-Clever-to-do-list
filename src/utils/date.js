@@ -18,3 +18,14 @@ export const weekDays = {
 export const convertToTimestamp = (day, month, year) => {
   return Date.parse(`${month}/${day}/${year}`).toString();
 }
+
+export const initMonth = (daysInMonth) => {
+  const days = [];
+  for (let i = date.getDate(); i < daysInMonth + 1; i+=1) {
+    days.push(convertToTimestamp(i, month, year));
+  }
+
+  return days;
+}
+
+

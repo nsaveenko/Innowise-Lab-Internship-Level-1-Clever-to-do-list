@@ -23,7 +23,7 @@ function TodoItem({id, title, completed}) {
         checked={checked}
         onChange={handleChange}
       />
-      <label htmlFor={id} />
+      <label htmlFor={id} className='custom-checkbox-label' />
       <span
         className='todo-title'
         onClick={() => {

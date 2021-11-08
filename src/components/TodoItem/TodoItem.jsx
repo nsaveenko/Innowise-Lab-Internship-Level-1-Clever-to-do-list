@@ -6,11 +6,12 @@ import './TodoItem.css';
 function TodoItem({id, title, completed}) {
   const history = useHistory();
   const [checked, setChecked] = useState(completed);
-  const { editTodoCompleted } = useTodo();
+  const { editTodoCompleted, getTodos } = useTodo();
 
   function handleChange() {
     setChecked(!checked);
     editTodoCompleted(id, checked);
+    getTodos();
   }
 
   return (

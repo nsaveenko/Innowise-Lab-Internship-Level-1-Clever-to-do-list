@@ -1,15 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { useTodo } from '../../contexts/TodoContext';
 import Header from '../../components/Header/Header';
 import Calendar from '../../components/Calendar/Calendar';
 import TodoList from '../../components/TodoList/TodoList';
 import { date, currentDay } from '../../utils/date';
+import './Dashboard.css';
 
-export default function Todos() {
-  const { todos, loading, getTodosByDate } = useTodo();
-  const todosCount = todos.length;
+export default function Dashboard() {
+  const { todos, loading, getTodos } = useTodo();
+  const [selectedDay, setSelectedDay] = useState(moment().format("MMM Do YY"));
 
   let todosCountTitle = '';
+
+  useEffect(() => {
+    getTodos();
+  }, []);
+
+  const handleSelectedDayChange = (day) => {
+    setSelectedDay(day);
+  }
+
+  const todosByDate = todos.filter((todo) => {
+    return todo.date === selectedDay;
+  })
+
+  const todosCount = todosByDate.length;
 
   if (todosCount === 0) {
     todosCountTitle = 'There are no tasks on this day yet'
@@ -19,26 +35,23 @@ export default function Todos() {
     todosCountTitle = `${todosCount} tasks on this day`
   }
 
-  useEffect(() => {
-    getTodosByDate(date);
-  }, [])
-
   return (
     <>
       <Header headerTitle='Tassker' />
       <main>
         <div className='wrapper todos'>
           <Calendar
-            date={date} 
-            currentDay={currentDay} 
+            date={date}
+            currentDay={currentDay}
+            selectedDay={selectedDay}
+            handleSelectedDayChange={handleSelectedDayChange}
           />
           {loading && <h3 className='todos-count'>{todosCountTitle}</h3>}
           {
             loading ?
             <TodoList 
               date={date} 
-              currentDay={currentDay} 
-              todos={todos} 
+              todos={todosByDate} 
             /> :
             <p className='loading'>Loading...</p>
           }

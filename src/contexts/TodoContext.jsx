@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import firebase from '../firebase';
-import moment from 'moment';
 import { useAuth } from './AuthContext';
 
 const TodoContext = React.createContext();
@@ -16,10 +15,9 @@ export default function TodoProvider({ children }) {
   const ref =  firebase.firestore().collection('todos');
   const { currentUser } = useAuth();
 
-  function getTodosByDate(date) {
+  function getTodos() {
     ref
       .where('email', '==', currentUser.email)
-      .where('date', '==', moment(date).format('MMM Do YY'))
       .get().then((item) => {
       const items = item.docs.map((doc) => doc.data());
       setTodos(items);
@@ -72,13 +70,13 @@ export default function TodoProvider({ children }) {
 
   const value = {
     ref,
-    addTodo,
-    editTodoCompleted,
-    getTodosByDate,
-    getTodoById,
     todos,
     loading,
     todo,
+    addTodo,
+    editTodoCompleted,
+    getTodos,
+    getTodoById,
     setTodo,
     editTodo,
     deleteTodo

@@ -1,43 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
+import moment from 'moment';
 import Scroll from '../Scroller/Scroller';
-import CalendarItem from './CalendarItem';
+import CalendarItem from '../CalendarItem/CalendarItem';
 import { convertToTimestamp, weekDays, daysInMonth, month, year } from '../../utils/date';
+import { useTodo } from '../../contexts/TodoContext';
+import './Calendar.css';
 
-export default function Calendar({ date, currentDay }) {
+export default function Calendar({ date, currentDay, selectedDay, handleSelectedDayChange }) {
   const days = [];
-  const [selected, setSelected] = useState(currentDay);
+  const { todos } = useTodo();
 
-  for (let i = 1; i < daysInMonth + 1; i+=1) {
+  for (let i = date.getDate(); i < daysInMonth + 1; i+=1) {
     days.push(convertToTimestamp(i, month, year));
   }
 
-  function handleClick(event) {
-    const node = event.target;
-    switch (event.target.className) {
-      case 'calendar-item':
-        setSelected(node.lastElementChild.id);
-        break;
-      case 'week-day-title':
-        setSelected(node.parentNode.lastElementChild.id);
-        break;
-      default:
-        setSelected(node.id);
-    }
+  function handleDayClick(event) {
+    const currentId = event.currentTarget.id;
+    handleSelectedDayChange(moment(`${month}/${currentId}/${year}`).format('MMM Do YY'));
   }
 
   return (
     <div className='scroll-container'>
       <Scroll>
-          <ul className='calendar' onClick={handleClick}>
+          <ul className='calendar' >
           {
             days.map((day) => {
+              const todosByDate = todos.filter((todo) => {
+                return todo.date === moment(+day).format('MMM Do YY');
+              })
               return (
-                <CalendarItem 
+                <CalendarItem
                   key={day}
                   day={day}
                   weekDays={weekDays}
                   currentDay={currentDay}
-                  selected={Number(selected)}
+                  selectedDay={selectedDay}
+                  handleDayClick={handleDayClick}
+                  todosByDate={todosByDate}
                 />
               )
             })

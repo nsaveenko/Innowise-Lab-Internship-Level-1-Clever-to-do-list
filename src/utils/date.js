@@ -1,10 +1,10 @@
 import moment from 'moment';
 
 export const date = new Date();
-export const currentDay = date.getDate();
 export const year = date.getFullYear();
 export const month = date.getMonth() + 1;
 export const daysInMonth = moment().daysInMonth();
+export const currentDay = moment(`${month}/${date.getDate()}/${year}`).format("MMM Do YY");
 export const weekDays = {
   0: 'Sun',
   1: 'Mon',

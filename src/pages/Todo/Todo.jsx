@@ -9,6 +9,7 @@ import { useTodo } from '../../contexts/TodoContext';
 import { useAuth } from '../../contexts/AuthContext';
 import Header from '../../components/Header/Header';
 import { RemoveButton } from '../../components/RemoveButton/RemoveButton';
+import './Todo.css';
 
 export default function SetToDo() {
   const location = useLocation();
@@ -26,8 +27,8 @@ export default function SetToDo() {
   useEffect(() => {
     if (todoId) {
       getTodoById(todoId);
-      setNewTitle(todo.title);
-      setNewDescription(todo.description);
+      setNewTitle(todo.title || '');
+      setNewDescription(todo.description || '');
     } else {
       setNewTitle('What do you need to do?');
       setNewDescription('Describe it!');
@@ -60,7 +61,7 @@ export default function SetToDo() {
 
   return (
     <>
-      <Header headerTitle='New Task'/>
+      <Header headerTitle='Todo'/>
       <main>
         <div className='wrapper'>
           <form className='todo-form' onSubmit={handleSubmit}>

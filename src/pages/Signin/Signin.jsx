@@ -28,12 +28,12 @@ export default function Singin() {
       <form className='form' onSubmit={handleSubmit}>
         <label>
           <h3 className='input-title'>Email</h3>
-          <input type='email' ref={emailRef} />
+          <input type='email' ref={emailRef} autoComplete='on' required />
         </label>
         
         <label>
           <h3 className='input-title'>Password</h3>
-          <input type='password' ref={passwordRef} />
+          <input type='password' ref={passwordRef} autoComplete='on' required />
         </label>
 
         <input className='primary-button' type='submit' value='Sign In' />

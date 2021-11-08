@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { ERRORS } from '../../utils/errors';
 
 export default function Singin() {
   const emailRef = useRef();
@@ -17,7 +18,7 @@ export default function Singin() {
       await signin(emailRef.current.value, passwordRef.current.value);
       history.push('/');
     } catch {
-      setError('Failed to sign in');
+      setError(ERRORS.SIGN_IN_MESSAGE);
     }
   }
 

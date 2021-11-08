@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
+import { ERRORS } from '../../utils/errors';
 
 export default function Singup() {
   const emailRef = useRef();
@@ -18,7 +19,7 @@ export default function Singup() {
       await signin(email, password);
       history.push('/');
     } catch {
-      setError('Failed to sign in');
+      setError(ERRORS.SIGN_IN_MESSAGE);
     }
   }
 
@@ -26,11 +27,11 @@ export default function Singup() {
     e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError('Passwords do not match');
+      return setError(ERRORS.SIGN_UP_MESSAGE_PASSWORD_CONFIRMATION);
     }
 
     if (passwordRef.current.value.length < 6) {
-      return setError('Password should be at least 6 characters');
+      return setError(ERRORS.SIGN_UP_MESSAGE_PASSWORD_LENGTH);
     }
 
     try {
@@ -38,7 +39,7 @@ export default function Singup() {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
     } catch {
-      setError('Failed to create an account');
+      setError(ERRORS.SIGN_UP_MESSAGE_ACCOUNT_CREATION);
     }
 
     setLoading(false);

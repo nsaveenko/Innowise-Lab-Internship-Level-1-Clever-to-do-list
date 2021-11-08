@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { ERRORS } from '../../utils/errors';
 import './Header.css';
 
 export default function Header({ headerTitle }) {
@@ -16,7 +17,7 @@ export default function Header({ headerTitle }) {
       await signout();
       history.push('/signin');
     } catch {
-      setError('Failed to sign out');
+      setError(ERRORS.SIGN_OUT_MESSAGE);
     }
   }
 

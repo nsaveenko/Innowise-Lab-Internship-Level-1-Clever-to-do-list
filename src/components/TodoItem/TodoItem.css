@@ -8,11 +8,14 @@
 }
 
 .todo-title {
-  width: 300px;
   padding-left: 10px;
   font-size: 15px;
   font-weight: 300;
   color: #898989;
+}
+
+.todo-title:hover {
+  color: #ff6e40;
 }
 
 .custom-checkbox {

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import firebase from '../firebase';
+import firebase from '../api/index';
 import { useAuth } from './AuthContext';
 
 const TodoContext = React.createContext();
